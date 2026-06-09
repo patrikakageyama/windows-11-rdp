@@ -87,7 +87,7 @@ jobs:
             $chromePath = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
         }
         
-        Start-Process -FilePath $chromePath -ArgumentList "--remote-debugging-port=9222 --user-data-dir=C:\chrome_dev_profile"
+        Start-Process -FilePath $chromePath -ArgumentList "--remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --remote-allow-origins=* --no-first-run --no-default-browser-check --user-data-dir=C:\chrome_dev_profile"
         
         Write-Host "Chrome started on port 9222"
       shell: powershell
