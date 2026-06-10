@@ -78,8 +78,13 @@ jobs:
 
     - name: Start Chrome with CDP
       run: |
+        Write-Host "Killing any existing Chrome processes..."
+        Stop-Process -Name "chrome" -ErrorAction SilentlyContinue
+        Start-Sleep -Seconds 2
+        
         Write-Host "Opening Firewall for CDP port 9222..."
-        New-NetFirewallRule -DisplayName "Chrome CDP" -Direction Inbound -LocalPort 9222 -Protocol TCP -Action Allow
+        Remove-NetFirewallRule -DisplayName "Chrome CDP" -ErrorAction SilentlyContinue
+        New-NetFirewallRule -DisplayName "Chrome CDP" -Direction Inbound -LocalPort 9222 -Protocol TCP -Action Allow -Profile Any
         
         Write-Host "Starting Chrome with remote debugging..."
         $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
